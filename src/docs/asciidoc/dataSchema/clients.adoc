@@ -1,0 +1,28 @@
+= Таблица Clients
+
+:sectnums:
+:sectnumlevels: 3
+:toc: left
+:toclevels: 10
+:toc-placement: macro
+:toc-title: Оглавление
+
+toc::[]
+
+== Назначение
+
+Таблица зарегистрированных читателей библиотеки.
+
+== Колонки таблицы
+
+[options="header"]
+|===
+| *Название*        | *Тип*         | *Обязательность*| *Описание*                          | *Пример значения*
+| id                | bigint        | да              | ID читателя                         | 1000
+| fullname          | varchar(200)  | да              | ФИО читателя                        | Сидоров Иван Петрович
+|===
+
+== Ключи и ограничения
+
+* *Primary key* - `id`
+* *Unique key* - `fullname`
