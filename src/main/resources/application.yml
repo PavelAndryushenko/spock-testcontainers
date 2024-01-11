@@ -6,3 +6,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/${spring.datasource.name}
     username: ${spring.datasource.name}
     password: ${spring.datasource.name}
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    user: ${spring.datasource.name}
+    password: ${spring.datasource.name}
+    url: ${spring.datasource.url}

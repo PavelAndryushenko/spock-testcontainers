@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="20240110-001" author="Pavel A Andryushenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="books" />
+            </not>
+        </preConditions>
+        <createTable tableName="books" remarks="Таблица книг, хранящихся в библиотеке">
+            <column name="id" type="BIGINT" remarks="Уникальный идентификатор книги">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_books" />
+            </column>
+            <column name="isbn" type="VARCHAR" remarks="13-значный код ISBN издания книги">
+                <constraints nullable="false" />
+            </column>
+            <column name="title" type="VARCHAR" remarks="Название книги">
+                <constraints nullable="false" />
+            </column>
+            <column name="author" type="VARCHAR" remarks="Имя автора книги">
+                <constraints nullable="false" />
+            </column>
+            <column name="publishing_year" type="INT" remarks="Год издания книги">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="books" columnName="id" />
+        <addUniqueConstraint tableName="books" columnNames="isbn" />
+    </changeSet>
+
+    <changeSet id="20240110-002" author="Pavel A Andryushenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="clients" />
+            </not>
+        </preConditions>
+        <createTable tableName="clients" remarks="Таблица зарегистрированных читателей библиотеки">
+            <column name="id" type="BIGINT" remarks="Уникальный идентификатор читателя">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_library_clients" />
+            </column>
+            <column name="fullname" type="VARCHAR" remarks="ФИО читателя">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="clients" columnName="id" />
+        <addUniqueConstraint tableName="clients" columnNames="fullname" />
+    </changeSet>
+
+    <changeSet id="20240110-003" author="Pavel A Andryushenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="rentals" />
+            </not>
+        </preConditions>
+        <createTable tableName="rentals" remarks="Таблица выдачи книг на руки читателям">
+            <column name="id" type="BIGINT" remarks="Уникальный идентификатор записи о выдаче книги">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_clients" />
+            </column>
+            <column name="client_id" type="BIGINT" remarks="ID читателя">
+                <constraints nullable="false" />
+            </column>
+            <column name="book_id" type="BIGINT" remarks="ID книги">
+                <constraints nullable="false" />
+            </column>
+            <column name="issue_time" type="DATETIME" remarks="Время выдачи книги на руки читателю">
+                <constraints nullable="false" />
+            </column>
+            <column name="return_time" type="DATETIME" remarks="Время возврата книги в библиотеку" />
+        </createTable>
+        <addAutoIncrement tableName="rentals" columnName="id" />
+        <addUniqueConstraint tableName="rentals" columnNames="client_id, book_id, issue_time" />
+    </changeSet>
+
+    <changeSet id="20240110-004" author="Pavel A Andryushenko">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rentals" />
+            <tableExists tableName="books" />
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_rentals_books" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="rentals" baseColumnNames="book_id" constraintName="fk_rentals_books"
+                                 referencedTableName="books" referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="20240110-005" author="Pavel A Andryushenko">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rentals" />
+            <tableExists tableName="clients" />
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_rentals_clients" />
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="rentals" baseColumnNames="client_id" constraintName="fk_rentals_clients"
+                                 referencedTableName="clients" referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>
