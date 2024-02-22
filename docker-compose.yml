@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  spock-testcontainers-db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+
+  spock-testcontainers-service:
+    image: "spock-testcontainers-docker"
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - spock-testcontainers-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://spock-testcontainers-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres

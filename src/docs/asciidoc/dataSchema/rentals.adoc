@@ -1,0 +1,33 @@
+= Таблица Rentals
+
+:sectnums:
+:sectnumlevels: 3
+:toc: left
+:toclevels: 10
+:toc-placement: macro
+:toc-title: Оглавление
+
+toc::[]
+
+== Назначение
+
+Таблица выдачи книг на руки читателям.
+
+== Колонки таблицы
+
+[options="header"]
+|===
+| *Название*        | *Тип*         | *Обязательность*| *Описание*                          | *Пример значения*
+| id                | bigint        | да              | ID записи                           | 1000
+| client_id         | bigint        | да              | ID читателя                         | 101
+| book_id           | bigint        | да              | ID книги                            | 595
+| issue_time        | timestamp     | да              | Время выдачи книги на руки читателю | 2023-10-19 10:23:54
+| return_time       | timestamp     | нет             | Время возврата книги в библиотеку   | 2023-10-21 15:00:00
+|===
+
+== Ключи и ограничения
+
+* *Primary key* - `id`
+* *Unique key* - `clent_id`, `book_id`, `issue_time`
+* *Foreign key* - `client_id` ссылка на колонку `id` таблицы link:clients.adoc[clients]
+* *Foreign key* - `book_id` ссылка на колонку `id` таблицы link:books.adoc[books]
