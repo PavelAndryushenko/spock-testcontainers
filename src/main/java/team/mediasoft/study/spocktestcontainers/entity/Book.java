@@ -1,0 +1,31 @@
+package team.mediasoft.study.spocktestcontainers.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "books")
+@Getter
+@Setter
+public class Book {
+
+    @Id
+    private Long id;
+
+    @Column
+    private String isbn;
+
+    @Column
+    private String title;
+
+    @Column
+    private String author;
+
+    @Column
+    private Integer publishingYear;
+}
