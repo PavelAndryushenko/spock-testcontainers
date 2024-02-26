@@ -12,3 +12,9 @@ spring:
     user: ${spring.datasource.name}
     password: ${spring.datasource.name}
     url: ${spring.datasource.url}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        show_sql: true
+        ddl-auto: validate
