@@ -4,6 +4,7 @@ import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import team.mediasoft.study.spocktestcontainers.repository.BookRepository;
 import team.mediasoft.study.spocktestcontainers.repository.ClientRepository;
 import team.mediasoft.study.spocktestcontainers.repository.RentalRepository;
@@ -27,5 +28,11 @@ public class DatabaseConfiguration {
     @Primary
     public ClientRepository mockClientRepository() {
         return Mockito.mock(ClientRepository.class);
+    }
+
+    @Bean
+    @Primary
+    public NamedParameterJdbcTemplate mockNamedParameterJdbcTemplate() {
+        return Mockito.mock(NamedParameterJdbcTemplate.class);
     }
 }
