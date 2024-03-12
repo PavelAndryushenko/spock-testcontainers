@@ -3,7 +3,6 @@ package team.mediasoft.study.spocktestcontainers.converter;
 import lombok.experimental.UtilityClass;
 import team.mediasoft.study.spocktestcontainers.model.ClientDebt;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Map;
 
