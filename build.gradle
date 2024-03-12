@@ -32,6 +32,8 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter:1.19.7'
     testImplementation 'org.testcontainers:postgresql:1.19.7'
     testImplementation 'org.testcontainers:spock:1.19.7'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 sourceSets {
@@ -51,6 +53,10 @@ configurations {
 
 test {
     useJUnitPlatform()
+
+    testLogging {
+        events "passed"
+    }
 }
 
 task integrationTest(type: Test) {
@@ -62,4 +68,8 @@ check.dependsOn integrationTest
 
 integrationTest {
     useJUnitPlatform()
+
+    testLogging {
+        events "passed"
+    }
 }
