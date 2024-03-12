@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import team.mediasoft.study.spocktestcontainers.model.ClientDebt;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import static team.mediasoft.study.spocktestcontainers.repository.ClientStatisticRepository.BOOK_COUNT_FIELD;
@@ -18,8 +19,10 @@ public class ClientDebtRowMapper {
         return new ClientDebt(
                 row.containsKey(CLIENT_ID_FIELD) ? (Long) row.get(CLIENT_ID_FIELD) : null,
                 row.containsKey(CLIENT_NAME_FIELD) ? (String) row.get(CLIENT_NAME_FIELD) : null,
-                row.containsKey(BOOK_COUNT_FIELD) ? (Integer) row.get(BOOK_COUNT_FIELD) : null,
-                row.containsKey(DEBT_DATE_FIELD) ? ((Date) row.get(DEBT_DATE_FIELD)).toLocalDate() : null
+                row.containsKey(BOOK_COUNT_FIELD) ? ((Long) row.get(BOOK_COUNT_FIELD)).intValue() : null,
+                row.containsKey(DEBT_DATE_FIELD)
+                        ? ((Timestamp) row.get(DEBT_DATE_FIELD)).toLocalDateTime().toLocalDate()
+                        : null
         );
     }
 }
